@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block title %}CRYPTO DATA{% endblock %}
+
+{% block content %}
+
+<div class="jumbotron">
+    <h4>GET THE CRYPTO DATA YOU NEED</h4>
+</div>
+
+<div class="container">
+    <table class="table table-striped table-dark">
+        <thead>
+            <tr>
+                <th scope="col">Logo</th>
+                <th scope="col">Name</th>
+                <th scope="col">Rank</th>
+                <th scope="col">Market cap</th>
+                <th scope="col">Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if datas %}
+            {% for data in datas %}
+            <tr>
+                <td><img src="{{data.image}}" height="70px" alt="Coin Logo"></td>
+                <td class="align-middle">{{data.name}}</td>
+                <td class="align-middle">{{data.market_cap_rank}}</td>
+                <td class="align-middle">{{data.market_cap}}</td>
+                <td class="align-middle">{{data.current_price}} USD</td>
+
+            </tr>
+            {% endfor %}
+            {% else %}
+            <p>Nothing Here to show</p>
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
