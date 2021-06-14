@@ -26,7 +26,7 @@
                 <td class="align-middle">{{data.name}}</td>
                 <td class="align-middle">{{data.market_cap_rank}}</td>
                 <td class="align-middle">{{data.market_cap}}</td>
-                <td class="align-middle">{{data.current_price}} USD</td>
+                <td id="coin-{{data.id}}" class="align-middle">{{data.current_price}} USD</td>
 
             </tr>
             {% endfor %}
@@ -36,5 +36,37 @@
         </tbody>
     </table>
 </div>
+
+<script>
+
+    const socket = new WebSocket(
+        'ws://'
+        + window.location.host
+        + '/ws/'
+        + 'price/'
+    );
+
+    socket.onopen = function (e) {
+        console.log("Connection Made");
+    }
+
+    socket.onclose = function (e) {
+        console.log('Connection Closed');
+    }
+
+    socket.onerror = function (e) {
+        console.log(e)
+    }
+
+    socket.onmessage = function (e) {
+        const data = JSON.parse(e.data);
+        console.log(data.payload.coin_name);
+
+        const coin_name = data.payload.coin_name.toLowerCase();
+        const fieldToChange = document.getElementById('coin-' + coin_name);
+        fieldToChange.innerHTML = data.payload.price;
+    }
+
+</script>
 
 {% endblock %}

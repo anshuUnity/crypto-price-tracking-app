@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'channels',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -73,10 +74,19 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'crypto_track.wsgi.application'
+ASGI_APPLICATION = 'crypto_track.asgi.application'
 
+# LEARN CHANNELS
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("localhost", 6379)],
+        },
+    },
+}
 
-# Database
+# Databas
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
